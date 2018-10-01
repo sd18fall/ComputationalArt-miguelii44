@@ -1,4 +1,4 @@
-"""TODO: Put your header comment here."""
+"""Miguel Castillo II Computational Art Mini-project"""
 
 import random
 from PIL import Image
@@ -20,9 +20,13 @@ def build_random_function(min_depth, max_depth):
         (See the assignment writ-eup for details on the representation of
         these functions)
     """
-    # TODO: implement this
-    pass
-
+    myList = [2, 109, False, 10, "Lorem", 482, "Ipsum"]
+    choice = random.choice(myList)
+    print(choice)
+    random_depth = random.randint(min_depth, max_depth)
+    test = [1, 2, 3]
+    functions = ["prod", ["sin_pi", ["x"]], ["cos_pi", ["x"]
+    #for i in range(random_depth):
 
 def evaluate_random_function(f, x, y):
     """Evaluate the random function f with inputs x,y.
@@ -43,8 +47,11 @@ def evaluate_random_function(f, x, y):
         >>> evaluate_random_function(["y"],0.1,0.02)
         0.02
     """
-    # TODO: implement this
-    pass
+    if f == ["x"]:
+        return x
+
+    elif f == ["y"]:
+        return y
 
 
 def remap_interval(val,
@@ -80,9 +87,10 @@ def remap_interval(val,
         >>> remap_interval(5, 4, 6, 1, 2)
         1.5
     """
-    # TODO: implement this
-    pass
+    output_range = output_interval_end - output_interval_start
+    input_range = input_interval_end - input_interval_start
 
+    return (((val - input_interval_start)*(output_range) / input_range) + output_interval_start)
 
 def color_map(val):
     """Maps input value between -1 and 1 to an integer 0-255, suitable for use as an RGB color code.
@@ -137,9 +145,9 @@ def generate_art(filename, x_size=350, y_size=350):
         x_size, y_size: optional args to set image dimensions (default: 350)
     """
     # Functions for red, green, and blue channels - where the magic happens!
-    red_function = ["x"]
-    green_function = ["y"]
-    blue_function = ["x"]
+    red_function = build_random_function(7, 9)
+    green_function = build_random_function(7, 9)
+    blue_function = build_random_function(7, 9)
 
     # Create image and loop over all pixels
     im = Image.new("RGB", (x_size, y_size))
@@ -160,12 +168,11 @@ def generate_art(filename, x_size=350, y_size=350):
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-
     # Create some computational art!
     # TODO: Un-comment the generate_art function call after you
     #       implement remap_interval and evaluate_random_function
-    # generate_art("myart.png")
-
+    #generate_art("myart.png")
+    build_random_function(1,2)
     # Test that PIL is installed correctly
     # TODO: Comment or remove this function call after testing PIL install
-    test_image("noise.png")
+    #test_image("noise.png")
