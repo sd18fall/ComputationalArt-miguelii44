@@ -26,7 +26,7 @@ def build_random_function(min_depth, max_depth):
     gigafunction = []
     choice = random.choice(functions)
     if random_depth <= 0:
-        xy = [["x"], ["y"]]
+        xy = ["x", "y"]
         gigafunction.append(random.choice(xy))
         return gigafunction
     elif choice == "prod" or choice == "avg":
@@ -38,7 +38,7 @@ def build_random_function(min_depth, max_depth):
         gigafunction.append(choice)
         gigafunction.append(build_random_function(max_depth-1, max_depth-1))
         return gigafunction
-    return gigafunction
+    # return gigafunction
 
 
     #for i in range(random_depth):
@@ -69,7 +69,7 @@ def evaluate_random_function(f, x, y):
         return y
 
     elif f[0] == "avg":
-        return ((evaluate_random_function(f[1])*evaluate_random_function(f[2]))*0.5)
+        return ((evaluate_random_function(f[1], x, y)*evaluate_random_function(f[2], x, y))*0.5)
 
     elif f[0] == "sin_pi":
         return math.sin(math.pi * evaluate_random_function(f[1], x, y))
@@ -81,9 +81,12 @@ def evaluate_random_function(f, x, y):
         return (evaluate_random_function(f[1], x, y) * evaluate_random_function(f[2], x, y))
 
     elif f[0] == "cos2":
-        return math.cos(math.pi * (evaluate_random_function(f[1], x, y) * evaluate_random_function(f[1], x, y))
+        return math.cos(math.pi * (evaluate_random_function(f[1], x, y) * evaluate_random_function(f[1], x, y)))
 
-def remap_interval(val, input_interval_start, input_interval_end, output_interval_start, output_inteval_end):
+    elif f[0] == "sin2":
+        return math.sin(math.pi * (evaluate_random_function(f[1], x, y) * evaluate_random_function(f[1], x, y)))
+
+def remap_interval(val, input_interval_start, input_interval_end, output_interval_start, output_interval_end):
     """Remap a value from one interval to another.
 
     Given an input value in the interval [input_interval_start,
@@ -114,8 +117,8 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
     """
     output_range = output_interval_end - output_interval_start
     input_range = input_interval_end - input_interval_start
-
-    return (((val - input_interval_start)*(output_range) / input_range) + output_interval_start)
+    remapped = (((val - input_interval_start)*(output_range) / input_range) + output_interval_start)
+    return remapped
 
 def color_map(val):
     """Maps input value between -1 and 1 to an integer 0-255, suitable for use as an RGB color code.
@@ -170,9 +173,10 @@ def generate_art(filename, x_size=350, y_size=350):
         x_size, y_size: optional args to set image dimensions (default: 350)
     """
     # Functions for red, green, and blue channels - where the magic happens!
-    red_function = build_random_function(7, 9)
-    green_function = build_random_function(7, 9)
-    blue_function = build_random_function(7, 9)
+    red_function = build_random_function(5, 6)
+    print(red_function)
+    green_function = build_random_function(5, 6)
+    blue_function = build_random_function(5, 6)
 
     # Create image and loop over all pixels
     im = Image.new("RGB", (x_size, y_size))
@@ -196,7 +200,7 @@ if __name__ == '__main__':
     # Create some computational art!
     # TODO: Un-comment the generate_art function call after you
     #       implement remap_interval and evaluate_random_function
-    generate_art("myart.png")
+    generate_art("myartv2.png")
 
     # Test that PIL is installed correctly
     # TODO: Comment or remove this function call after testing PIL install
